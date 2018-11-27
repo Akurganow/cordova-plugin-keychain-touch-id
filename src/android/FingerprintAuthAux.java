@@ -235,7 +235,7 @@ public class FingerprintAuthAux {
         if (action.equals(SAVE)) {
             final String key = args.getString(0);
             final String password = args.getString(1);
-            setUserAuthenticationRequired = false;
+            setUserAuthenticationRequired = true;
 
             if (isFingerprintAuthAvailable()) {
                 SecretKey secretKey = getSecretKey();
