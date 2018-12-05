@@ -64,7 +64,10 @@
 - (void)has:(CDVInvokedUrlCommand*)command{
   	self.TAG = (NSString*)[command.arguments objectAtIndex:0];
     BOOL hasLoginKey = [[NSUserDefaults standardUserDefaults] boolForKey:self.TAG];
-    if(hasLoginKey){
+    self.MyKeychainWrapper = [[KeychainWrapper alloc] initWithAccount:self.TAG];
+    BOOL isReset = [self.MyKeychainWrapper isKeychainItemReset];
+
+    if(hasLoginKey && !isReset){
         CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     }
