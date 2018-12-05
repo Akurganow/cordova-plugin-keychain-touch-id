@@ -16,6 +16,7 @@ static const UInt8 kKeychainItemIdentifier[]    = "com.apple.dts.KeychainUI\0";
 @property (nonatomic, strong) NSMutableDictionary *keychainData;
 @property (nonatomic, strong) NSMutableDictionary *genericPasswordQuery;
 @property (nonatomic, strong) NSString *userAccount;
+@property BOOL isReset;
 
 @end
 
@@ -39,6 +40,7 @@ static const UInt8 kKeychainItemIdentifier[]    = "com.apple.dts.KeychainUI\0";
     
     if (self) {
         
+        self.isReset = false;
         
         OSStatus keychainErr = noErr;
         // Set up the keychain search dictionary:
@@ -103,6 +105,7 @@ static const UInt8 kKeychainItemIdentifier[]    = "com.apple.dts.KeychainUI\0";
     if (![currentObject isEqual:inObject])
     {
         [_keychainData setObject:inObject forKey:key];
+        self.isReset = false;
         [self writeToKeychain];
     }
 }
@@ -111,6 +114,11 @@ static const UInt8 kKeychainItemIdentifier[]    = "com.apple.dts.KeychainUI\0";
 - (id)myObjectForKey:(id)key
 {
     return [_keychainData objectForKey:key];
+}
+
+- (BOOL)isKeychainItemReset
+{
+    return self.isReset;
 }
 
 // Reset the values in the keychain item, or create a new item if it
@@ -140,6 +148,7 @@ static const UInt8 kKeychainItemIdentifier[]    = "com.apple.dts.KeychainUI\0";
     [_keychainData setObject:@"Service" forKey:(__bridge id)kSecAttrService];
     [_keychainData setObject:@"Your comment here." forKey:(__bridge id)kSecAttrComment];
     [_keychainData setObject:@"password" forKey:(__bridge id)kSecValueData];
+    self.isReset = true;
 }
 
 

@@ -16,5 +16,6 @@
 - (id)myObjectForKey:(id)key;
 - (void)writeToKeychain;
 - (void)resetKeychainItem;
+- (BOOL)isKeychainItemReset;
 
 @end
