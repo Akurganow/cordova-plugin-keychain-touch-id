@@ -396,7 +396,11 @@ public class FingerprintAuthAux {
     }
 
     private boolean isHardwareDetected() {
-        if (mParentCordovaPlugin == null || mParentCordovaPlugin.cordova.getActivity().checkSelfPermission(Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
+        if (
+            mParentCordovaPlugin == null
+            || mParentCordovaPlugin.cordova.getActivity().checkSelfPermission(Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED
+            || mParentCordovaPlugin.cordova.getActivity().checkSelfPermission(Manifest.permission.USE_BIOMETRIC) != PackageManager.PERMISSION_GRANTED
+        ) {
             return false;
         }
 
@@ -404,7 +408,11 @@ public class FingerprintAuthAux {
     }
 
     private boolean hasEnrolledFingerprints() {
-        if (mParentCordovaPlugin == null || mParentCordovaPlugin.cordova.getActivity().checkSelfPermission(Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
+        if (
+            mParentCordovaPlugin == null
+            || mParentCordovaPlugin.cordova.getActivity().checkSelfPermission(Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED
+            || mParentCordovaPlugin.cordova.getActivity().checkSelfPermission(Manifest.permission.USE_BIOMETRIC) != PackageManager.PERMISSION_GRANTED
+        ) {
             return false;
         }
 
